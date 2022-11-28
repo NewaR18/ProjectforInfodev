@@ -1,0 +1,121 @@
+﻿@model FinalProject.Models.Customer
+@{
+    ViewData["Title"] = "InsertCustomer";
+}
+
+<div style="color: #FFFFFF; border: 1px solid #031633; margin-top:5px;padding:40px; background-color: #290D1D;">
+<h4 style="text-align:center">Receipt Portal</h4>
+<h6 style="text-align:right; margin:50px 30px 35px 0px;">Date: @DateTime.Now.ToLongDateString()</h6>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="InsertCustomer">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div style="display:flex; justify-content: space-evenly; width:1300px">
+                <div class="form-group">
+                    <label asp-for="CustomerFirstName" class="control-label">First Name: </label>
+                    <input asp-for="CustomerFirstName" class="form-control" />
+                    <span asp-validation-for="CustomerFirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CustomerMiddleName" class="control-label">Middle Name:</label>
+                    <input asp-for="CustomerMiddleName" class="form-control" />
+                    <span asp-validation-for="CustomerMiddleName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CustomerLastName" class="control-label">Last Name: </label>
+                    <input asp-for="CustomerLastName" class="form-control" />
+                    <span asp-validation-for="CustomerLastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div style="display:flex; justify-content: space-evenly; width:1300px; margin-top:35px;">
+                <div class="form-group">
+                    <label asp-for="CustomerEmail" class="control-label">Email: </label>
+                    <input asp-for="CustomerEmail" class="form-control" />
+                    <span asp-validation-for="CustomerEmail" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CustomerPhone" class="control-label">Phone No: </label>
+                    <input asp-for="CustomerPhone" class="form-control" />
+                    <span asp-validation-for="CustomerPhone" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group" style="width:1000px; margin:50px 100px 50px 100px;">
+                <table id="dyn" class="table">
+                    <thead>
+                        <tr>
+                            <th style="color:#FFFFFF">Product</th>
+                            <th style="color:#FFFFFF">QTY</th>
+                            <th style="color:#FFFFFF">Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(int i=0;i<Model.DetailsPurchases.Count;i++)
+                        {
+                            <tr>
+                                <td>
+                                    <input asp-for="DetailsPurchases[i].ProductName" class="form-control">
+                                    <span asp-validation-for="DetailsPurchases[i].ProductName" class="text-danger"></span>
+                                </td>
+                                <td>
+                                    <input asp-for="DetailsPurchases[i].QTY" class="form-control">
+                                    <span asp-validation-for="DetailsPurchases[i].QTY" class="text-danger"></span>
+                                </td>
+                                <td>
+                                    <input asp-for="DetailsPurchases[i].TotalPrice" class="form-control">
+                                    <span asp-validation-for="DetailsPurchases[i].TotalPrice" class="text-danger"></span>
+                                </td>
+                                <td>
+                                    <button type="button" id="add_@i" onclick="Add(this)" class="btn" style="background-color:#042D2D; color:white;">Add</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <input type="hidden" id="flag" value="0" />
+
+           <input type="submit" value="Create" class="btn" style="background-color:#042D2D; color:white; margin-left:1050px;" />
+
+        </form>
+    </div>
+</div>
+</div>
+<footer class="footer" style="background-color: #031633;color:white; display:flex;justify-content:space-evenly; padding:50px; width:1296px; margin-top:5px; ">
+        <div class="container">
+            &copy; 2022 - FinalProject
+        </div>
+        <div class="container">
+            <h5>Quick Links</h5>
+            <ul style="list-style:none;" class="nav flex-column">
+            <li style="margin-left:20px;">
+                  <a  style="text-decoration:none;color:#FFFFFF" asp-area="" asp-controller="Product" asp-action="ShowAll">DisplayingAllData</a>
+            </li>
+            <li style="margin-left:20px;">
+                <a style="text-decoration:none;color:#FFFFFF" asp-area="" asp-controller="Product" asp-action="Customers">Customers</a>
+            </li>
+            <li style="margin-left:20px;">
+                <a style="text-decoration:none;color:#FFFFFF" asp-area="" asp-controller="Product" asp-action="InsterCustomer">New Receipt</a>
+            </li>
+            </ul>
+        </div>
+    </footer>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function Add(btn){
+            var table=document.getElementById("dyn");
+            var rows=table.getElementsByTagName("tr");
+            var outrows=rows[rows.length-1].outerHTML;
+            var IndexOfLastRow=document.getElementById("flag").value;
+            var IndexOfNextRow=parseInt(IndexOfLastRow)+1;
+            document.getElementById("flag").value=IndexOfNextRow;
+            outrows=outrows.replaceAll('['+IndexOfLastRow+']','['+IndexOfNextRow+']')
+            outrows=outrows.replaceAll('_'+IndexOfLastRow,'_'+IndexOfNextRow)
+            var newrow=table.insertRow();
+            newrow.innerHTML=outrows;
+            var addbtn=document.getElementById(btn.id);
+            addbtn.classList.add("invisible");
+        }
+    </script>
+}

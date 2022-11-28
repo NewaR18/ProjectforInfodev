@@ -1,0 +1,79 @@
+﻿@model IEnumerable<FinalProject.Models.Customer>
+
+@{
+    ViewData["Title"] = "Customers";
+}
+<div style="color: #FFFFFF; border: 1px solid #031633; margin-top:5px;padding:40px; background-color: #290D1D;">
+<h4 style="text-align:center">Customers Portal</h4>
+
+<p>
+    <a asp-action="InsertCustomer">Add Data</a>
+</p>
+<table class="table" style="color:white;">
+    <thead>
+        <tr>
+            <th>
+                First Name
+            </th>
+            <th>
+                Middle Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+               Phone Number
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerMiddleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerPhone)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CustomerId">Details</a> |
+                <a asp-action="DeleteCustomer1" asp-route-id="@item.CustomerId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+<footer class="footer" style="background-color: #031633;color:white; display:flex;justify-content:space-evenly; padding:50px; width:1296px; margin-top:5px; ">
+        <div class="container">
+            &copy; 2022 - FinalProject
+        </div>
+        <div class="container">
+            <h5>Quick Links</h5>
+            <ul style="list-style:none;" class="nav flex-column">
+            <li style="margin-left:20px;">
+                  <a  style="text-decoration:none;color:#FFFFFF" asp-area="" asp-controller="Product" asp-action="ShowAll">DisplayingAllData</a>
+            </li>
+            <li style="margin-left:20px;">
+                <a style="text-decoration:none;color:#FFFFFF" asp-area="" asp-controller="Product" asp-action="Customers">Customers</a>
+            </li>
+            <li style="margin-left:20px;">
+                <a style="text-decoration:none;color:#FFFFFF" asp-area="" asp-controller="Product" asp-action="InsterCustomer">New Receipt</a>
+            </li>
+            </ul>
+        </div>
+    </footer>

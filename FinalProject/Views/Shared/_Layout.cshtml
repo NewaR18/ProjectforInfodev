@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FinalProject</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FinalProject.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav style="background-color: #031633; margin:0px 310px 0px 310px;">
+            <div style="color:#FFFFFF; display:flex; justify-content:space-evenly;" >
+                <a class="navbar-brand" style="text-decoration:none;color:#FFFFFF" asp-area="" asp-controller="Home" asp-action="Index">FinalProject</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div >
+                    <ul style="text-decoration:none; display: flex; justify-content: space-between; list-style:none; color:#FFFFFF">
+                        <li class="nav-item">
+                            <a class="nav-link" style="text-decoration:none;color:#FFFFFF" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" style="text-decoration:none;color:#FFFFFF" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" style="text-decoration:none;color:#FFFFFF" asp-area="" asp-controller="Product" asp-action="Customers">Customers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" style="text-decoration:none;color:#FFFFFF" asp-area="" asp-controller="Product" asp-action="ShowAll">DisplayingAllData</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <div class="b-example-divider"></div>
+    <div class="container">
+    
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
